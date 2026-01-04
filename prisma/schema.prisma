@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id      String @id @default(uuid())
+  name    String @unique
+  address String
+  logo    String?
+
+  storeBooks StoreBook[]
+}
+
+model Author {
+  id    String @id @default(uuid())
+  name  String @unique
+
+  books Book[]
+}
+
+model Book {
+  id       String @id @default(uuid())
+  name     String
+  pages    Int
+  authorId String
+
+  author Author @relation(fields: [authorId], references: [id])
+  storeBooks StoreBook[]
+
+  @@unique([name, authorId])
+}
+
+model StoreBook {
+  storeId String
+  bookId  String
+
+  price   Float
+  copies  Int     @default(1)
+  soldout Boolean @default(false)
+
+  store Store @relation(fields: [storeId], references: [id])
+  book  Book  @relation(fields: [bookId], references: [id])
+
+  @@id([storeId, bookId])
+}
