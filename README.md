@@ -1,4 +1,3 @@
-````md
 # Ovarc Backend Coding Challenge — Digital Bookstore Inventory & Reporting
 
 This repository contains my solution to the **Backend Coding Challenge**.
@@ -98,6 +97,7 @@ Notes:
     "maxRows": 500
   }
 }
+
 ````
 
 ---
